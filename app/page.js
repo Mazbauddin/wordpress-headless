@@ -19,7 +19,7 @@ export default async function HomePage() {
           <Link className="primary-button" href="/shop">Shop Now</Link>
         </div>
       </section>
-
+{/* home section */}
       <section className="container home-section">
         <div className="section-heading"><h2>Shop by Category</h2></div>
         <div className="category-grid">
