@@ -1,3 +1,10 @@
-import ResetPasswordForm from "@/components/Account/ResetPasswordForm";
-export const metadata = { title: "Reset Password", robots: { index: false, follow: false } };
-export default function Page() { return <ResetPasswordForm />; }
+import { Suspense } from "react";
+import ResetPasswordForm from "./ResetPasswordForm";
+
+export default function ResetPasswordPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ResetPasswordForm />
+    </Suspense>
+  );
+}
