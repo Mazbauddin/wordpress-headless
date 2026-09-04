@@ -3,7 +3,7 @@ import { getSession } from "@/lib/session";
 import { getOrder } from "@/lib/wc-admin";
 
 export const metadata = { title: "Order Details", robots: { index: false, follow: false } };
-
+export const dynamic = "force-dynamic";
 export default async function OrderDetailsPage({ params }) {
   const { id } = await params;
   const session = await getSession();

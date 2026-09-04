@@ -1,17 +1,45 @@
-import AddressForm from "@/components/Account/AddressForm";
-import { getSession } from "@/lib/session";
-import { getCustomer } from "@/lib/wc-admin";
+import { redirect } from "next/navigation";
+import { getSession } from "@/lib/auth";
+import { getCustomer } from "@/lib/woocommerce";
 
-export const metadata = { title: "Addresses", robots: { index: false, follow: false } };
+export const dynamic = "force-dynamic";
 
 export default async function AddressesPage() {
+
   const session = await getSession();
+
+  if (!session?.userId) {
+    redirect("/login");
+  }
+
   const customer = await getCustomer(session.userId);
+
 
   return (
     <div>
       <h1>Addresses</h1>
-      <AddressForm customer={customer} />
+
+      {customer && (
+        <div>
+          <h2>{customer.first_name} {customer.last_name}</h2>
+
+          <div>
+            <h3>Billing Address</h3>
+            <p>
+              {customer.billing?.address_1}
+            </p>
+          </div>
+
+          <div>
+            <h3>Shipping Address</h3>
+            <p>
+              {customer.shipping?.address_1}
+            </p>
+          </div>
+
+        </div>
+      )}
+
     </div>
   );
 }
