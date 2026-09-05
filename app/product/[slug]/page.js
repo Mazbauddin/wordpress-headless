@@ -53,28 +53,70 @@ export default async function ProductPage({ params }) {
           <Breadcrumbs items={[{ label: "Shop", href: "/shop" }, { label: product.name }]} />
         </div>
 
-        <div className="product-gallery">
-          {product.images?.map((image) => (
-            <Image
-              key={image.id}
-              src={image.src}
-              alt={image.alt || product.name}
-              width={900}
-              height={1100}
-              sizes="(max-width: 1000px) 100vw, 50vw"
-            />
-          ))}
-        </div>
+        <div className="product-layout">
 
-        <div className="product-summary">
-          <h1>{product.name}</h1>
-          <div className="product-single-price"><ProductPrice prices={product.prices} /></div>
-          <p className={product.is_in_stock ? "in-stock" : "out-of-stock"}>
-            {product.is_in_stock ? "In stock" : "Out of stock"}
-          </p>
-          <div className="wp-content" dangerouslySetInnerHTML={{ __html: product.short_description }} />
-          <AddToCart product={product} variations={variations} />
-        </div>
+  <div className="product-gallery">
+
+    {product.images?.map((image) => (
+      <Image
+        key={image.id}
+        src={image.src}
+        alt={image.alt || product.name}
+        width={900}
+        height={1100}
+        sizes="(max-width: 1000px) 100vw, 50vw"
+      />
+    ))}
+
+  </div>
+
+
+  <div className="product-summary">
+
+    <h1>{product.name}</h1>
+
+
+    <div className="product-single-price">
+      <ProductPrice prices={product.prices} />
+    </div>
+
+
+    <p className={product.is_in_stock ? "in-stock" : "out-of-stock"}>
+      {product.is_in_stock ? "In stock" : "Out of stock"}
+    </p>
+
+
+    <div 
+      className="wp-content product-short-description"
+      dangerouslySetInnerHTML={{
+        __html: product.short_description
+      }}
+    />
+
+
+    <AddToCart 
+      product={product} 
+      variations={variations}
+    />
+
+
+  </div>
+
+</div>
+
+
+<div className="full product-long-content">
+
+  <h2>Description</h2>
+
+  <div 
+    className="wp-content"
+    dangerouslySetInnerHTML={{
+      __html: product.description
+    }}
+  />
+
+</div>
 
         <div className="full product-long-content">
           <h2>Description</h2>
