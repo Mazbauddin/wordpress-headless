@@ -1,15 +1,24 @@
 "use client";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import {
+  Autoplay,
+  Pagination,
+  Navigation
+} from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
+import "./HeroSlider.css";
+
+
 export default function HeroSlider() {
 
+
 const slides = [
+
 {
 image:"/banner1.jpg",
 title:"Korean",
@@ -19,6 +28,7 @@ offer:"FLAT AT ৳998",
 button:"SHOP NOW",
 link:"/product-category/men"
 },
+
 
 {
 image:"/banner2.jpg",
@@ -30,6 +40,7 @@ button:"SHOP NOW",
 link:"/shop"
 },
 
+
 {
 image:"/banner3.jpg",
 title:"New",
@@ -40,12 +51,15 @@ button:"EXPLORE",
 link:"/shop"
 }
 
+
 ];
+
 
 
 return (
 
 <section className="hero-slider">
+
 
 <Swiper
 
@@ -55,18 +69,27 @@ Pagination,
 Navigation
 ]}
 
+
+slidesPerView={1}
+
+spaceBetween={0}
+
+loop={true}
+
+
 autoplay={{
 delay:4000,
 disableOnInteraction:false
 }}
 
+
 pagination={{
 clickable:true
 }}
 
-navigation
 
-loop
+navigation={true}
+
 
 className="heroSwiper"
 
@@ -74,34 +97,45 @@ className="heroSwiper"
 
 
 {
+
 slides.map((slide,index)=>(
+
 
 <SwiperSlide key={index}>
 
 
 <div
+
 className="hero-slide"
+
 style={{
-backgroundImage:`linear-gradient(
+
+backgroundImage:
+
+`linear-gradient(
 rgba(0,0,0,.25),
 rgba(0,0,0,.25)
-), url(${slide.image})`
+),
+url(${slide.image})`
+
 }}
+
 >
-
-
-<div className="overlay"></div>
 
 
 <div className="hero-content">
 
 
 <h1>
+
 {slide.title}
+
 <br/>
+
 <span>
 {slide.subtitle}
 </span>
+
 </h1>
 
 
@@ -110,14 +144,21 @@ rgba(0,0,0,.25)
 </p>
 
 
+
 <div className="offer">
+
 {slide.offer}
+
 </div>
 
 
+
 <a href={slide.link}>
+
 {slide.button}
+
 </a>
+
 
 
 </div>
@@ -128,14 +169,19 @@ rgba(0,0,0,.25)
 
 </SwiperSlide>
 
+
 ))
+
 }
+
 
 
 </Swiper>
 
+
 </section>
 
-)
+);
+
 
 }
