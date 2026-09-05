@@ -79,10 +79,13 @@ slides.map((slide,index)=>(
 <SwiperSlide key={index}>
 
 
-<div 
+<div
 className="hero-slide"
 style={{
-backgroundImage:`url(${slide.image})`
+backgroundImage:`linear-gradient(
+rgba(0,0,0,.25),
+rgba(0,0,0,.25)
+), url(${slide.image})`
 }}
 >
 
