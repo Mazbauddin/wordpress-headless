@@ -670,11 +670,11 @@ img { display: block; max-width: 100%; }
 }
 /* PRODUCT MAIN LAYOUT */
 
-.product-layout{
+.product-layout {
 
     display:grid;
 
-    grid-template-columns: calc(50% - 20px) calc(50% - 20px);
+    grid-template-columns:1fr 1fr;
 
     gap:40px;
 
