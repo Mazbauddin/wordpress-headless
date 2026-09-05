@@ -2,6 +2,7 @@ import Link from "next/link";
 import ProductCard from "@/components/Product/ProductCard";
 export const dynamic = "force-dynamic";
 import { getProducts, getProductCategories } from "@/lib/woocommerce";
+import HeroSlider from "@/components/HeroSlider";
 
 export default async function HomePage() {
   const [latest, featured, categories] = await Promise.all([
@@ -12,14 +13,15 @@ export default async function HomePage() {
 
   return (
     <>
-      <section className="hero">
+      {/* <section className="hero">
         <div className="container hero-content">
           <p className="eyebrow">HEADLESS WOOCOMMERCE</p>
           <h1>A fast storefront controlled from WordPress.</h1>
           <p>Replace this starter hero with your own brand content and campaign creative.</p>
           <Link className="primary-button" href="/shop">Shop Now</Link>
         </div>
-      </section>
+      </section> */}
+      <HeroSlider />
 {/* home section */}
       <section className="container home-section">
         <div className="section-heading"><h2>Shop by Category</h2></div>
