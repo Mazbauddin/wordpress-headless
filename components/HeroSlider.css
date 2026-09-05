@@ -64,6 +64,7 @@
 
 
 
+
 .hero-content {
 
 
@@ -79,6 +80,7 @@
 
 
     color:white;
+
 
 }
 
@@ -182,8 +184,9 @@
 
 
 
+
 /* ==========================
-   BIG SLIDER ARROWS
+   SMALL SLIDER ARROWS
 ========================== */
 
 
@@ -191,13 +194,13 @@
 .swiper-button-prev {
 
 
-    width:80px !important;
+    width:45px !important;
 
 
-    height:80px !important;
+    height:45px !important;
 
 
-    background:rgba(0,0,0,0.45);
+    background:rgba(0,0,0,0.35);
 
 
     border-radius:50%;
@@ -206,18 +209,33 @@
     color:white !important;
 
 
-    backdrop-filter:blur(5px);
+    transition:.3s;
 
 
 }
 
 
 
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+
+
+    background:rgba(0,0,0,0.6);
+
+
+}
+
+
+
+
+/* Arrow icon size */
+
+
 .swiper-button-next:after,
 .swiper-button-prev:after {
 
 
-    font-size:35px !important;
+    font-size:16px !important;
 
 
     font-weight:700;
@@ -227,10 +245,13 @@
 
 
 
+/* Arrow position */
+
+
 .swiper-button-prev {
 
 
-    left:40px !important;
+    left:25px !important;
 
 
 }
@@ -240,28 +261,30 @@
 .swiper-button-next {
 
 
-    right:40px !important;
+    right:25px !important;
 
 
 }
 
 
 
+
+
 /* ==========================
-   PAGINATION
+   PAGINATION DOTS
 ========================== */
 
 
 .swiper-pagination-bullet {
 
 
-    width:40px !important;
+    width:35px !important;
 
 
     height:4px !important;
 
 
-    border-radius:0 !important;
+    border-radius:5px !important;
 
 
     background:white !important;
@@ -284,8 +307,10 @@
 
 
 
+
+
 /* ==========================
-   MOBILE
+   MOBILE RESPONSIVE
 ========================== */
 
 
@@ -305,7 +330,7 @@
 .hero-content {
 
 
-    width:80%;
+    width:85%;
 
 
     margin-left:5%;
@@ -355,14 +380,29 @@
 
 
 
+.hero-content a {
+
+
+    padding:14px 30px;
+
+
+    font-size:18px;
+
+
+}
+
+
+
+
+
 .swiper-button-next,
 .swiper-button-prev {
 
 
-    width:45px !important;
+    width:35px !important;
 
 
-    height:45px !important;
+    height:35px !important;
 
 
 }
@@ -373,7 +413,7 @@
 .swiper-button-prev:after {
 
 
-    font-size:20px !important;
+    font-size:13px !important;
 
 
 }
@@ -383,7 +423,7 @@
 .swiper-button-prev {
 
 
-    left:15px !important;
+    left:10px !important;
 
 
 }
@@ -393,7 +433,7 @@
 .swiper-button-next {
 
 
-    right:15px !important;
+    right:10px !important;
 
 
 }
