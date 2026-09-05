@@ -1,5 +1,6 @@
 import Link from "next/link";
 import ProductCard from "@/components/Product/ProductCard";
+export const dynamic = "force-dynamic";
 import { getProducts, getProductCategories } from "@/lib/woocommerce";
 
 export default async function HomePage() {
