@@ -26,10 +26,13 @@ export async function generateMetadata({ params }) {
 
   const product = await getProductBySlug(slug);
 
+
   if (!product) {
+
     return {
       title: "Product Not Found"
     };
+
   }
 
 
@@ -40,7 +43,9 @@ export async function generateMetadata({ params }) {
       .slice(0,155);
 
 
+
   const site = process.env.NEXT_PUBLIC_SITE_URL;
+
 
 
   return {
@@ -49,26 +54,26 @@ export async function generateMetadata({ params }) {
 
     description,
 
-    alternates:{
-      canonical:`${site}/product/${product.slug}`
+
+    alternates: {
+      canonical: `${site}/product/${product.slug}`
     },
 
 
-    openGraph:{
+    openGraph: {
 
-      title:product.name,
+      title: product.name,
 
       description,
 
-      url:`${site}/product/${product.slug}`,
+      url: `${site}/product/${product.slug}`,
 
-      images:
-        product.images?.[0]
+      images: product.images?.[0]
         ? [
-          {
-            url:product.images[0].src
-          }
-        ]
+            {
+              url: product.images[0].src
+            }
+          ]
         : []
 
     }
@@ -81,398 +86,449 @@ export async function generateMetadata({ params }) {
 
 
 
-export default async function ProductPage({params}){
+export default async function ProductPage({ params }) {
 
 
-const {slug}=await params;
+  const { slug } = await params;
 
 
-const product = await getProductBySlug(slug);
+  const product = await getProductBySlug(slug);
 
 
-if(!product){
-  notFound();
-}
 
+  if (!product) {
 
+    notFound();
 
-const [
-  related,
-  reviews,
-  variations
-]=await Promise.all([
+  }
 
 
-  getRelatedProducts(product.id,4),
 
 
-  getProductReviews(product.id),
+  const [
+    related,
+    reviews,
+    variations
 
+  ] = await Promise.all([
 
-  product.has_options
 
-  ? getProductVariations(product.id)
-      .catch(()=>[])
+    getRelatedProducts(product.id,4),
 
-  : Promise.resolve([])
 
+    getProductReviews(product.id),
 
-]);
 
+    product.has_options
 
+      ? getProductVariations(product.id)
+          .catch(() => [])
 
+      : Promise.resolve([])
 
 
-return (
+  ]);
 
-<>
 
 
-<ProductSchema product={product}/>
 
 
 
-<section className="container product-page">
+  return (
 
+    <>
 
 
-<div className="full product-breadcrumb">
+      <ProductSchema product={product} />
 
-<Breadcrumbs
 
-items={[
-{
-label:"Shop",
-href:"/shop"
-},
-{
-label:product.name
-}
 
-]}
+      <section className="container product-page">
 
-/>
 
-</div>
 
 
 
+        {/* Breadcrumb */}
 
+        <div className="full product-breadcrumb">
 
+          <Breadcrumbs
 
-<div className="product-layout">
+            items={[
+              {
+                label:"Shop",
+                href:"/shop"
+              },
+              {
+                label:product.name
+              }
+            ]}
 
+          />
 
+        </div>
 
 
 
-{/* PRODUCT IMAGE */}
 
 
-<div className="product-gallery">
 
 
-<div className="main-product-image">
+        {/* PRODUCT MAIN */}
 
 
-<Image
+        <div className="product-layout">
 
-src={
-product.images?.[0]?.src
-}
 
-alt={
-product.images?.[0]?.alt ||
-product.name
-}
 
-width={900}
 
-height={1100}
 
-className="zoom-image"
+          {/* GALLERY */}
 
-priority
 
-/>
+          <div className="product-gallery">
 
-</div>
 
+            <div className="main-product-image">
 
 
+              <Image
 
+                src={
+                  product.images?.[0]?.src
+                }
 
-<div className="product-thumbnails">
+                alt={
+                  product.images?.[0]?.alt ||
+                  product.name
+                }
 
+                width={900}
 
-{
-product.images?.map((image)=>(
+                height={1100}
 
-<Image
+                className="zoom-image"
 
-key={image.id}
+                priority
 
-src={image.src}
+              />
 
-alt={
-image.alt || product.name
-}
 
-width={100}
+            </div>
 
-height={120}
 
-className="thumbnail-image"
 
-/>
 
-))
 
-}
 
+            {/* THUMBNAILS */}
 
 
-</div>
+            <div className="product-thumbnails">
 
 
-</div>
+              {
+                product.images?.map((image)=>(
 
 
+                  <Image
 
+                    key={image.id}
 
+                    src={image.src}
 
+                    alt={
+                      image.alt ||
+                      product.name
+                    }
 
+                    width={100}
 
+                    height={120}
 
+                    className="thumbnail-image"
 
-{/* PRODUCT INFO */}
 
+                  />
 
 
-<div className="product-summary">
+                ))
 
+              }
 
 
-<h1>
 
-{product.name}
+            </div>
 
-</h1>
 
 
 
+          </div>
 
 
-<div className="product-single-price">
 
-<ProductPrice prices={product.prices}/>
 
-</div>
 
 
 
 
 
+          {/* PRODUCT INFO */}
 
-<p
 
-className={
-product.is_in_stock
-? "in-stock"
-: "out-of-stock"
-}
+          <div className="product-summary">
 
->
 
-{
-product.is_in_stock
-?
-"In stock"
-:
-"Out of stock"
-}
 
 
-</p>
 
+            <h1>
 
+              {product.name}
 
+            </h1>
 
 
 
 
-<div
 
-className="wp-content product-short-description"
 
-dangerouslySetInnerHTML={{
+            <div className="product-single-price">
 
-__html:
-product.short_description
 
-}}
+              <ProductPrice
 
-/>
+                prices={product.prices}
 
+              />
 
 
+            </div>
 
 
 
 
-<AddToCart
 
-product={product}
 
-variations={variations}
 
-/>
+            <p
 
+              className={
+                product.is_in_stock
+                ? "in-stock"
+                : "out-of-stock"
+              }
 
+            >
 
+              {
+                product.is_in_stock
+                ? "In stock"
+                : "Out of stock"
+              }
 
 
+            </p>
 
-</div>
 
 
 
 
 
-</div>
 
 
+            <div
 
+              className="wp-content product-short-description"
 
+              dangerouslySetInnerHTML={{
 
+                __html:
+                product.short_description
 
+              }}
 
+            />
 
-{/* DESCRIPTION */}
 
 
 
-<div className="full product-long-content">
 
 
-<h2>
-Description
-</h2>
 
 
-<div
+            <AddToCart
 
-className="wp-content"
+              product={product}
 
-dangerouslySetInnerHTML={{
+              variations={variations}
 
-__html:
-product.description
+            />
 
-}}
 
-/>
 
 
-</div>
 
 
+          </div>
 
 
 
 
 
-{/* REVIEWS */}
+        </div>
 
 
 
-<div className="full product-reviews-section">
 
 
-<h2>
-Reviews
-</h2>
 
 
-<ProductReviews reviews={reviews}/>
 
 
-<ReviewForm productId={product.id}/>
+        {/* DESCRIPTION */}
 
 
+        <div className="full product-long-content">
 
-</div>
 
+          <h2>
 
+            Description
 
+          </h2>
 
 
 
+          <div
 
-{/* RELATED */}
+            className="wp-content"
 
+            dangerouslySetInnerHTML={{
 
+              __html:
+              product.description
 
-{
+            }}
 
-related.length > 0 &&
+          />
 
-(
 
+        </div>
 
-<div className="full related-products">
 
 
-<h2>
-You may also like
-</h2>
 
 
 
-<div className="product-grid">
 
 
-{
 
-related.map((item)=>(
+        {/* REVIEWS */}
 
 
-<ProductCard
 
-key={item.id}
+        <div className="full product-reviews-section">
 
-product={item}
 
-/>
+          <h2>
 
+            Reviews
 
-))
+          </h2>
 
-}
 
 
+          <ProductReviews
 
-</div>
+            reviews={reviews}
 
+          />
 
-</div>
 
 
-)
+          <ReviewForm
 
+            productId={product.id}
 
-}
+          />
 
 
 
+        </div>
 
-</section>
 
 
 
-</>
 
-);
+
+
+
+
+        {/* RELATED PRODUCTS */}
+
+
+
+        {
+          related.length > 0 && (
+
+
+            <div className="full related-products">
+
+
+              <h2>
+
+                You may also like
+
+              </h2>
+
+
+
+
+
+              <div className="product-grid">
+
+
+                {
+                  related.map((item)=>(
+
+
+                    <ProductCard
+
+                      key={item.id}
+
+                      product={item}
+
+                    />
+
+
+                  ))
+
+                }
+
+
+              </div>
+
+
+
+            </div>
+
+
+          )
+
+        }
+
+
+
+
+
+      </section>
+
+
+    </>
+
+  );
 
 
 }
